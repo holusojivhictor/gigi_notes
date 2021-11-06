@@ -34,12 +34,12 @@ class _NoteListScreenState extends State<NoteListScreen> {
             crossAxisCount: 2,
             childAspectRatio: 0.6,
             children: List.generate(noteItems.length, (index) {
-              final item = noteItems[index];
+              final itemNotes = noteItems[index];
 
-              return GestureDetector(
+              return InkWell(
                 child: NoteTile(
-                  key: Key(item.cNoteId.toString()),
-                  item: item,
+                  key: Key(itemNotes.cNoteId.toString()),
+                  item: itemNotes,
                   onComplete: (change) {
                     if (change != null) {
                       widget.manager.completeItem(index, change);
@@ -51,7 +51,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => NoteItemScreen(
-                          originalItem: item,
+                          originalItem: itemNotes,
                           onCreate: (_) {},
                           onUpdate: (item) {
                             widget.manager.updateItem(item, index);
@@ -60,7 +60,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                         )),
                   );
                 },
-                /*onLongPress: () {
+                onLongPress: () {
                   PopupMenuContainer<String>(
                     child: const Icon(Icons.delete),
                     items: const [
@@ -68,11 +68,11 @@ class _NoteListScreenState extends State<NoteListScreen> {
                     ],
                     onItemSelected: (value) async {
                       if( value == 'delete' ){
-                        deleteNote(repository, item);
+                        deleteNote(repository, itemNotes);
                       }
                     },
                   );
-                },*/
+                },
               );
             }),
           );

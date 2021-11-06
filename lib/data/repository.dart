@@ -7,6 +7,8 @@ abstract class Repository {
 
   Future<int> insertNote(NoteItem noteItem);
 
+  Future<int> updateNote(NoteItem noteItem);
+
   Future<void> deleteNote(NoteItem noteItem);
 
   Future init();

@@ -110,11 +110,12 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
 
                       if (widget.isUpdating) {
                         widget.onUpdate(noteItem);
+                        repository.updateNote(noteItem);
                       } else {
                         widget.onCreate(noteItem);
+                        repository.insertNote(noteItem);
                       }
 
-                      repository.insertNote(noteItem);
                     },
                   ),
                 ],

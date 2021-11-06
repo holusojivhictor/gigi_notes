@@ -26,6 +26,15 @@ class SqliteRepository extends Repository {
   }
 
   @override
+  Future<int> updateNote(NoteItem noteItem) {
+    return Future(() async {
+      final id = await dbHelper.updateNote(noteItem);
+
+      return id;
+    });
+  }
+
+  @override
   Future<void> deleteNote(NoteItem noteItem) {
     dbHelper.deleteNote(noteItem);
 

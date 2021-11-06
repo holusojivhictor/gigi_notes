@@ -13,9 +13,12 @@ class NoteTile extends StatelessWidget {
     return Column(
       children: [
         Container(
-          color: Colors.transparent,
           height: 320,
           width: 200,
+          decoration: const BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -59,7 +62,7 @@ class NoteTile extends StatelessWidget {
 
   Widget buildTime() {
     final timeFormatter = DateTime.parse(item.dateTime);
-    final timeString = DateFormat("HH:mm   yyyy-MM-dd").format(timeFormatter);
+    final timeString = DateFormat("HH:mm yyyy-MM-dd").format(timeFormatter);
     return Text(timeString, style: const TextStyle(color: Colors.grey, fontSize: 14));
   }
 }

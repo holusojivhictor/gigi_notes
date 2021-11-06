@@ -6,7 +6,7 @@ import 'package:synchronized/synchronized.dart';
 import 'package:gigi_notes/models/models.dart';
 
 class DatabaseHelper {
-  static const _databaseName = 'GigiNotesNew.db';
+  static const _databaseName = 'GigiNotesNew1.db';
   static const _databaseVersion = 2;
 
   static const noteTable = 'GigiNotes';
@@ -121,6 +121,22 @@ class DatabaseHelper {
 
   Future<int> insertNote(NoteItem noteItem) {
     return insert(noteTable, noteItem.toMap());
+  }
+
+  // TODO: Update methods go here
+
+  Future<int> update(String table, Map<String, dynamic> row, String columnId, String id) async {
+    final db = await instance.streamDatabase;
+
+    return db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+  Future<int> updateNote(NoteItem noteItem) async {
+    if (noteItem.cNoteId != null) {
+      return update(noteTable, noteItem.toMap(), noteId, noteItem.cNoteId!);
+    } else {
+      return Future.value(-1);
+    }
   }
 
   // TODO: Delete methods go here

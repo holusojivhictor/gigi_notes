@@ -5,6 +5,7 @@ import 'package:gigi_notes/models/user.dart';
 import 'package:gigi_notes/screens/home/components/body.dart';
 import 'package:gigi_notes/screens/note_items/note_item_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -15,6 +16,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const String prefSelectedModeKey = 'selectedMode';
+  bool isSwitched = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // getSwitchValues();
+  }
+
+  getSwitchValues() async {
+    isSwitched = (await getSwitchState())!;
+    setState(() {});
+  }
+
+  Future<bool> saveSwitchState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    
+    prefs.setBool(prefSelectedModeKey, value);
+    print('Switch value saved $value');
+    return prefs.setBool(prefSelectedModeKey, value);
+  }
+
+  Future<bool?> getSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    bool? isSwitched = prefs.getBool(prefSelectedModeKey);
+    print(isSwitched);
+
+    return isSwitched;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Transform.scale(
       scale: 0.7,
       child: Switch(
+        key: const Key("Switch"),
         activeColor: Colors.grey,
         value: widget.user.darkMode,
         onChanged: (value) {
