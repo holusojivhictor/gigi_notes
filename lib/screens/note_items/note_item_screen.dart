@@ -12,12 +12,7 @@ class NoteItemScreen extends StatefulWidget {
   final NoteItem? originalItem;
   final bool isUpdating;
 
-  const NoteItemScreen({
-    Key? key,
-    required this.onCreate,
-    required this.onUpdate,
-    this.originalItem,
-  }) : isUpdating = (originalItem != null), super(key: key);
+  const NoteItemScreen({Key? key, required this.onCreate, required this.onUpdate, this.originalItem}) : isUpdating = (originalItem != null), super(key: key);
 
   @override
   _NoteItemScreenState createState() => _NoteItemScreenState();
@@ -39,11 +34,10 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
       _title = originalItem.title;
       _noteTextController.text = originalItem.noteText;
       _noteText = originalItem.noteText;
+      /*var date = originalItem.date!;
+      _timeOfDay = TimeOfDay(hour: date.hour, minute: date.minute);
+      _editDate = date;*/
     }
-
-    /*final date = originalItem!.date!;
-    _timeOfDay = TimeOfDay(hour: date.hour, minute: date.minute);
-    _editDate = date;*/
 
     _titleController.addListener(() {
       setState(() {

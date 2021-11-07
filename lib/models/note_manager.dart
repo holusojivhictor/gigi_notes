@@ -6,7 +6,7 @@ class NoteManager extends ChangeNotifier {
   int _selectedIndex = -1;
   bool _createNewItem = false;
 
-  List<NoteItem> get noteItems => List.from(_noteItems, growable: true);
+  List<NoteItem> get noteItems => List.unmodifiable(_noteItems);
 
   int get selectedIndex => _selectedIndex;
   NoteItem? get selectedNoteItem => _selectedIndex != -1 ? _noteItems[_selectedIndex] : null;

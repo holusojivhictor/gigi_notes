@@ -6,11 +6,12 @@ import 'package:synchronized/synchronized.dart';
 import 'package:gigi_notes/models/models.dart';
 
 class DatabaseHelper {
-  static const _databaseName = 'GigiNotesNew1.db';
+  static const _databaseName = 'GigiNotesNew6.db';
   static const _databaseVersion = 2;
 
   static const noteTable = 'GigiNotes';
   static const noteId = 'noteId';
+  static const cNoteId = 'cNoteId';
 
   static late BriteDatabase _streamDatabase;
 
@@ -31,7 +32,7 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE $noteTable (
             $noteId INTEGER PRIMARY KEY,
-            cNoteId INTEGER,
+            $cNoteId INTEGER,
             title TEXT,
             noteText TEXT,
             dateTime TEXT,
@@ -120,7 +121,7 @@ class DatabaseHelper {
   }
 
   Future<int> insertNote(NoteItem noteItem) {
-    return insert(noteTable, noteItem.toMap());
+    return insert(noteTable, NoteItem.toMap(noteItem));
   }
 
   // TODO: Update methods go here
@@ -133,7 +134,7 @@ class DatabaseHelper {
 
   Future<int> updateNote(NoteItem noteItem) async {
     if (noteItem.cNoteId != null) {
-      return update(noteTable, noteItem.toMap(), noteId, noteItem.cNoteId!);
+      return update(noteTable, NoteItem.toMap(noteItem), cNoteId, noteItem.cNoteId!);
     } else {
       return Future.value(-1);
     }
@@ -149,7 +150,7 @@ class DatabaseHelper {
 
   Future<int> deleteNote(NoteItem noteItem) async {
     if (noteItem.cNoteId != null) {
-      return _delete(noteTable, noteId, noteItem.cNoteId!);
+      return _delete(noteTable, cNoteId, noteItem.cNoteId!);
     } else {
       return Future.value(-1);
     }

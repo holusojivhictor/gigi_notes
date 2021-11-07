@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class NoteItem {
   String? cNoteId;
   final String title;
@@ -40,13 +42,19 @@ class NoteItem {
     dateTime: json['dateTime'],
   );
 
-  Map<String, dynamic> toMap() {
+  static Map<String, dynamic> toMap(NoteItem noteItem) {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['cNoteId'] = this.cNoteId;
-    data['title'] = this.title;
-    data['noteText'] = this.noteText;
-    data['dateTime'] = this.dateTime;
+    data['cNoteId'] = noteItem.cNoteId;
+    data['title'] = noteItem.title;
+    data['noteText'] = noteItem.noteText;
+    data['dateTime'] = noteItem.dateTime;
 
     return data;
   }
+
+  static String encode(List<NoteItem> noteItems) => json.encode(
+    noteItems.map<Map<String, dynamic>>((noteItem) => NoteItem.toMap(noteItem)).toList(),
+  );
+
+  static List<NoteItem> decode(String noteItems) => (json.decode(noteItems) as List<dynamic>).map<NoteItem>((item) => NoteItem.fromMap(item)).toList();
 }

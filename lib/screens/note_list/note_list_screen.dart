@@ -17,7 +17,7 @@ class NoteListScreen extends StatefulWidget {
 }
 
 class _NoteListScreenState extends State<NoteListScreen> {
-  List<NoteItem> noteItems = [];
+  // List<NoteItem> noteItems = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,12 @@ class _NoteListScreenState extends State<NoteListScreen> {
             crossAxisCount: 2,
             childAspectRatio: 0.6,
             children: List.generate(noteItems.length, (index) {
-              final itemNotes = noteItems[index];
+              final itemNote = noteItems[index];
 
               return InkWell(
                 child: NoteTile(
-                  key: Key(itemNotes.cNoteId.toString()),
-                  item: itemNotes,
+                  key: Key(itemNote.cNoteId.toString()),
+                  item: itemNote,
                   onComplete: (change) {
                     if (change != null) {
                       widget.manager.completeItem(index, change);
@@ -51,10 +51,11 @@ class _NoteListScreenState extends State<NoteListScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => NoteItemScreen(
-                          originalItem: itemNotes,
+                          originalItem: itemNote,
                           onCreate: (_) {},
                           onUpdate: (item) {
                             widget.manager.updateItem(item, index);
+                            repository.updateNote(item);
                             Navigator.pop(context);
                             },
                         )),
@@ -68,7 +69,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                     ],
                     onItemSelected: (value) async {
                       if( value == 'delete' ){
-                        deleteNote(repository, itemNotes);
+                        deleteNote(repository, itemNote);
                       }
                     },
                   );

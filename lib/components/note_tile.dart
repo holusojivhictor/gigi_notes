@@ -3,11 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../models/note_item.dart';
 
-class NoteTile extends StatelessWidget {
+class NoteTile extends StatefulWidget {
   final NoteItem item;
   final Function(bool?)? onComplete;
   const NoteTile({Key? key, required this.item ,this.onComplete}) : super(key: key);
 
+  @override
+  State<NoteTile> createState() => _NoteTileState();
+}
+
+class _NoteTileState extends State<NoteTile> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,7 +41,7 @@ class NoteTile extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(12),
                       child: Text(
-                        item.noteText,
+                        widget.item.noteText,
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ),
@@ -44,14 +49,14 @@ class NoteTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  item.title,
+                  widget.item.title,
                   style: GoogleFonts.lato(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 5),
-                // buildTime(),
+                buildTime(),
               ],
             ),
           ),
@@ -61,8 +66,8 @@ class NoteTile extends StatelessWidget {
   }
 
   Widget buildTime() {
-    final timeFormatter = DateTime.parse(item.dateTime);
-    final timeString = DateFormat("HH:mm yyyy-MM-dd").format(timeFormatter);
-    return Text(timeString, style: const TextStyle(color: Colors.grey, fontSize: 14));
+    // final timeFormatter = DateTime.parse(widget.item.dateTime);
+    // final timeString = DateFormat("yyyy-MM-dd HH:mm:ss").format(timeFormatter);
+    return Text(widget.item.dateTime, style: const TextStyle(color: Colors.grey, fontSize: 14));
   }
 }
