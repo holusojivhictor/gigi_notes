@@ -22,12 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // getSwitchValues();
+    getSwitchValues();
   }
 
   getSwitchValues() async {
     isSwitched = (await getSwitchState())!;
-    setState(() {});
+    setState(() {
+      Provider.of<ProfileManager>(context, listen: false).darkMode = isSwitched;
+    });
   }
 
   Future<bool> saveSwitchState(bool value) async {
@@ -83,8 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Switch(
         key: const Key("Switch"),
         activeColor: Colors.grey,
-        value: widget.user.darkMode,
+        value: isSwitched,
         onChanged: (value) {
+          isSwitched = value;
+          saveSwitchState(value);
           Provider.of<ProfileManager>(context, listen: false).darkMode = value;
         },
       ),

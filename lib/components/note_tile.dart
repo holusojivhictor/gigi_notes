@@ -66,8 +66,8 @@ class _NoteTileState extends State<NoteTile> {
   }
 
   Widget buildTime() {
-    // final timeFormatter = DateTime.parse(widget.item.dateTime);
-    // final timeString = DateFormat("yyyy-MM-dd HH:mm:ss").format(timeFormatter);
-    return Text(widget.item.dateTime, style: const TextStyle(color: Colors.grey, fontSize: 14));
+    final timeFormatter = DateTime.parse(widget.item.dateTime);
+    final timeString = DateFormat("yyyy-MM-dd HH:mm").format(timeFormatter);
+    return Text(timeString , style: const TextStyle(color: Colors.grey, fontSize: 14));
   }
 }

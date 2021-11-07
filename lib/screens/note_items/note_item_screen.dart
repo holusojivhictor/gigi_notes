@@ -34,9 +34,6 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
       _title = originalItem.title;
       _noteTextController.text = originalItem.noteText;
       _noteText = originalItem.noteText;
-      /*var date = originalItem.date!;
-      _timeOfDay = TimeOfDay(hour: date.hour, minute: date.minute);
-      _editDate = date;*/
     }
 
     _titleController.addListener(() {
@@ -99,7 +96,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
                         cNoteId: widget.originalItem?.cNoteId ?? const Uuid().v1(),
                         title: _titleController.text,
                         noteText: _noteTextController.text,
-                        dateTime: '',
+                        dateTime: genDateTime.toIso8601String(),
                       );
 
                       if (widget.isUpdating) {
