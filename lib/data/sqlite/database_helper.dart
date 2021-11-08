@@ -6,7 +6,7 @@ import 'package:synchronized/synchronized.dart';
 import 'package:gigi_notes/models/models.dart';
 
 class DatabaseHelper {
-  static const _databaseName = 'GigiNotesTest2.db';
+  static const _databaseName = 'GigiNotesTest4.db';
   static const _databaseVersion = 1;
 
   static const noteTable = 'GigiNotes';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:gigi_notes/components/note_tile.dart';
-import 'package:gigi_notes/components/popup_menu.dart';
 import 'package:gigi_notes/data/repository.dart';
 import 'package:gigi_notes/models/models.dart';
 import 'package:gigi_notes/screens/empty_screen/empty_note_screen.dart';
@@ -17,6 +16,7 @@ class NoteListScreen extends StatefulWidget {
 }
 
 class _NoteListScreenState extends State<NoteListScreen> {
+  late Offset _tapDownPosition;
   // List<NoteItem> noteItems = [];
 
   @override
@@ -36,7 +36,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
             children: List.generate(noteItems.length, (index) {
               final itemNote = noteItems[index];
 
-              return InkWell(
+              return GestureDetector(
                 child: NoteTile(
                   key: Key(itemNote.cNoteId.toString()),
                   item: itemNote,
@@ -61,18 +61,34 @@ class _NoteListScreenState extends State<NoteListScreen> {
                         )),
                   );
                 },
-                onLongPress: () {
-                  PopupMenuContainer<String>(
-                    child: const Icon(Icons.delete),
-                    items: const [
-                      PopupMenuItem(value: 'delete', child: Text('Delete'))
+                onTapDown: (TapDownDetails details){
+                  _tapDownPosition = details.globalPosition;
+                },
+                onLongPress: () async {
+                  final RenderObject? overlay = Overlay.of(context)!.context.findRenderObject();
+
+                  await showMenu(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    position: RelativeRect.fromLTRB(
+                      _tapDownPosition.dx,
+                      _tapDownPosition.dy,
+                      overlay!.semanticBounds.width - _tapDownPosition.dx,
+                      overlay.semanticBounds.height - _tapDownPosition.dy,
+                    ),
+                    items: [
+                      const PopupMenuItem(
+                        child: Icon(Icons.delete),
+                        value: 'Delete',
+                      ),
                     ],
-                    onItemSelected: (value) async {
-                      if( value == 'delete' ){
-                        deleteNote(repository, itemNote);
-                      }
-                    },
-                  );
+                  ).then((value) {
+                    if (value == 'Delete') {
+                      deleteNote(repository, itemNote);
+                    }
+                  });
                 },
               );
             }),

@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     
     prefs.setBool(prefSelectedModeKey, value);
-    print('Switch value saved $value');
     return prefs.setBool(prefSelectedModeKey, value);
   }
 
@@ -44,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     bool? isSwitched = prefs.getBool(prefSelectedModeKey);
-    print(isSwitched);
 
     return isSwitched;
   }

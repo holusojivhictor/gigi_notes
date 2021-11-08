@@ -16,16 +16,20 @@ class ProfileManager extends ChangeNotifier {
   }
 }
 
-/*void saveData() async {
-    final noteItems = widget.manager!.noteItems;
+/*
+void saveData() async {
+  final noteItems = widget.manager!.noteItems;
 
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final String encodedData = NoteItem.encode(noteItems);
+  final String encodedData = NoteItem.encode(noteItems);
 
-    await prefs.setString('notesKey', encodedData);
+  await prefs.setString('notesKey', encodedData);
 
-    final String? noteString = prefs.getString('notesKey');
+  final String? noteString = prefs.getString('notesKey');
 
-    final List<NoteItem> noteItemSaved = NoteItem.decode(noteString!);
-  }*/
+  final List<NoteItem> noteItemSaved = NoteItem.decode(noteString!);
+
+  Provider.of<NoteManager>(context, listen: false).noteItems = noteItemSaved;
+}
+*/
