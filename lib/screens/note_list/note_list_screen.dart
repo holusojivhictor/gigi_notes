@@ -17,12 +17,10 @@ class NoteListScreen extends StatefulWidget {
 
 class _NoteListScreenState extends State<NoteListScreen> {
   late Offset _tapDownPosition;
-  // List<NoteItem> noteItems = [];
 
   @override
   Widget build(BuildContext context) {
     final repository = Provider.of<Repository>(context, listen: false);
-    // final noteItems = widget.manager.noteItems;
 
     return StreamBuilder<List<NoteItem>>(
       stream: repository.watchAllNotes(),
@@ -51,6 +49,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => NoteItemScreen(
+                          manager: widget.manager,
                           originalItem: itemNote,
                           onCreate: (_) {},
                           onUpdate: (item) {

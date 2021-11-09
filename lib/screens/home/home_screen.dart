@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => NoteItemScreen(
+                manager: manager,
                 onCreate: (item) {
                   manager.addItem(item);
                   Navigator.pop(context);

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'note_item.dart';
 
 class NoteManager extends ChangeNotifier {
-  final _noteItems = <NoteItem>[];
+  List<NoteItem> _noteItems = <NoteItem>[];
   int _selectedIndex = -1;
   bool _createNewItem = false;
 
@@ -11,6 +12,28 @@ class NoteManager extends ChangeNotifier {
   int get selectedIndex => _selectedIndex;
   NoteItem? get selectedNoteItem => _selectedIndex != -1 ? _noteItems[_selectedIndex] : null;
   bool get isCreatingNewItem => _createNewItem;
+  static const String prefNoteKey = 'notesKey';
+
+
+  void saveOldNotes() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String encodedData = NoteItem.encode(_noteItems);
+
+    prefs.setString(prefNoteKey, encodedData);
+  }
+
+  void getOldNotes() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final oldNotes = prefs.getString(prefNoteKey);
+
+    if (oldNotes != null) {
+      List<NoteItem> noteItemSaved = NoteItem.decode(oldNotes);
+
+      _noteItems = noteItemSaved;
+    }
+  }
 
   void createNewItem() {
     _createNewItem = true;

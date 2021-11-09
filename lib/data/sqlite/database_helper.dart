@@ -6,7 +6,7 @@ import 'package:synchronized/synchronized.dart';
 import 'package:gigi_notes/models/models.dart';
 
 class DatabaseHelper {
-  static const _databaseName = 'GigiNotesTest4.db';
+  static const _databaseName = 'GigiNotesFinal.db';
   static const _databaseVersion = 1;
 
   static const noteTable = 'GigiNotes';
@@ -15,16 +15,13 @@ class DatabaseHelper {
 
   static late BriteDatabase _streamDatabase;
 
-  // make this a singleton class
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
   static var lock = Lock();
 
-  // only have a single app-wide reference to the database
   static Database? _database;
 
-  // TODO: Add create database code here
 
   // SQL code to create the database tables
 
@@ -41,8 +38,6 @@ class DatabaseHelper {
           ''');
   }
 
-  // TODO: Add code to open database
-
   // This opens the database (and creates it if it doesn't already exist)
 
   Future<Database> _initDatabase() async {
@@ -50,13 +45,12 @@ class DatabaseHelper {
 
     final path = join(documentsDirectory.path, _databaseName);
 
-    // TODO: Remember to turn off debugging before deploying to app store(s)
+    // Remember to turn off debugging before deploying to app store(s)
     Sqflite.setDebugModeOn(true);
 
     return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
-  // TODO: Add initialize getter here
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -74,7 +68,6 @@ class DatabaseHelper {
     return _database!;
   }
 
-  // TODO: Add getter for streamDatabase
 
   Future<BriteDatabase> get streamDatabase async {
     await database;
@@ -92,7 +85,6 @@ class DatabaseHelper {
     return notes;
   }
 
-  // TODO: Add findAllNotes here
 
   Future<List<NoteItem>> findAllNotes() async {
     final db = await instance.streamDatabase;
@@ -102,7 +94,6 @@ class DatabaseHelper {
     return notes;
   }
 
-  // TODO: Add watchAllNotes here
 
   Stream<List<NoteItem>> watchAllNotes() async* {
     final db = await instance.streamDatabase;
@@ -112,7 +103,6 @@ class DatabaseHelper {
         .mapToList((row) => NoteItem.fromMap(row));
   }
 
-  // TODO: Insert methods go here
 
   Future<int> insert(String table, Map<String, dynamic> row) async {
     final db = await instance.streamDatabase;
@@ -124,7 +114,6 @@ class DatabaseHelper {
     return insert(noteTable, NoteItem.toMap(noteItem));
   }
 
-  // TODO: Update methods go here
 
   Future<int> update(String table, Map<String, dynamic> row, String columnId, String id) async {
     final db = await instance.streamDatabase;
@@ -140,7 +129,6 @@ class DatabaseHelper {
     }
   }
 
-  // TODO: Delete methods go here
 
   Future<int> _delete(String table, String columnId, String id) async {
     final db = await instance.streamDatabase;

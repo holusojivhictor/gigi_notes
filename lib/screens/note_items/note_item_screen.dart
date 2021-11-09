@@ -11,8 +11,9 @@ class NoteItemScreen extends StatefulWidget {
   final Function(NoteItem) onUpdate;
   final NoteItem? originalItem;
   final bool isUpdating;
+  final NoteManager manager;
 
-  const NoteItemScreen({Key? key, required this.onCreate, required this.onUpdate, this.originalItem}) : isUpdating = (originalItem != null), super(key: key);
+  const NoteItemScreen({Key? key, required this.onCreate, required this.onUpdate, this.originalItem, required this.manager}) : isUpdating = (originalItem != null), super(key: key);
 
   @override
   _NoteItemScreenState createState() => _NoteItemScreenState();
@@ -25,6 +26,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
   String _noteText = '';
   final DateTime _editDate = DateTime.now();
   final TimeOfDay _timeOfDay = TimeOfDay.now();
+
 
   @override
   void initState() {
@@ -47,6 +49,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
         _noteText = _noteTextController.text;
       });
     });
+    widget.manager.getOldNotes();
 
     super.initState();
   }
@@ -106,7 +109,8 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
                         widget.onCreate(noteItem);
                         repository.insertNote(noteItem);
                       }
-
+                      widget.manager.addItem(noteItem);
+                      widget.manager.saveOldNotes();
                     },
                   ),
                 ],

@@ -44,18 +44,3 @@ class PopupMenuContainerState<T> extends State<PopupMenuContainer<T>>{
     );
   }
 }
-
-/*PopupMenuContainer<String>(
-                    child: const SizedBox(child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Icon(Icons.delete),
-                    )),
-                    items: const [
-                      PopupMenuItem(value: 'delete', child: Text('Delete'))
-                    ],
-                    onItemSelected: (value) async {
-                      if( value == 'delete' ){
-                        deleteNote(repository, itemNote);
-                      }
-                    },
-                  );*/
