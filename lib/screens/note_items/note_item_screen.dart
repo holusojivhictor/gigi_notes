@@ -71,6 +71,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(10),
@@ -115,7 +116,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
                   ),
                 ],
               ),
-              const Divider(),
+              const Divider(thickness: 0.5),
               buildNoteTextField(),
             ],
           ),
@@ -129,7 +130,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 6),
       child: SizedBox(
-        width: size.width * 0.7,
+        width: size.width * 0.75,
         height: size.width * 0.1,
         child: TextField(
           controller: _titleController,
@@ -138,6 +139,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
           style: Theme.of(context).textTheme.headline2,
           decoration: const InputDecoration(
             hintText: 'Title',
+            contentPadding: EdgeInsets.symmetric(vertical: 15 ,horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide.none,
             ),

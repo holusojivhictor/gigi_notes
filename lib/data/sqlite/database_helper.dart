@@ -22,7 +22,6 @@ class DatabaseHelper {
 
   static Database? _database;
 
-
   // SQL code to create the database tables
 
   Future _onCreate(Database db, int version) async {
@@ -51,7 +50,6 @@ class DatabaseHelper {
     return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
-
   Future<Database> get database async {
     if (_database != null) return _database!;
     // Use this object to prevent concurrent access to data
@@ -68,7 +66,6 @@ class DatabaseHelper {
     return _database!;
   }
 
-
   Future<BriteDatabase> get streamDatabase async {
     await database;
     return _streamDatabase;
@@ -79,12 +76,11 @@ class DatabaseHelper {
 
     noteList.forEach((noteMap) {
       final note = NoteItem.fromMap(noteMap);
-      
+
       notes.add(note);
     });
     return notes;
   }
-
 
   Future<List<NoteItem>> findAllNotes() async {
     final db = await instance.streamDatabase;
@@ -94,15 +90,11 @@ class DatabaseHelper {
     return notes;
   }
 
-
   Stream<List<NoteItem>> watchAllNotes() async* {
     final db = await instance.streamDatabase;
 
-    yield* db
-        .createQuery(noteTable)
-        .mapToList((row) => NoteItem.fromMap(row));
+    yield* db.createQuery(noteTable).mapToList((row) => NoteItem.fromMap(row));
   }
-
 
   Future<int> insert(String table, Map<String, dynamic> row) async {
     final db = await instance.streamDatabase;
@@ -114,8 +106,8 @@ class DatabaseHelper {
     return insert(noteTable, NoteItem.toMap(noteItem));
   }
 
-
-  Future<int> update(String table, Map<String, dynamic> row, String columnId, String id) async {
+  Future<int> update(String table, Map<String, dynamic> row, String columnId,
+      String id) async {
     final db = await instance.streamDatabase;
 
     return db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
@@ -123,12 +115,12 @@ class DatabaseHelper {
 
   Future<int> updateNote(NoteItem noteItem) async {
     if (noteItem.cNoteId != null) {
-      return update(noteTable, NoteItem.toMap(noteItem), cNoteId, noteItem.cNoteId!);
+      return update(
+          noteTable, NoteItem.toMap(noteItem), cNoteId, noteItem.cNoteId!);
     } else {
       return Future.value(-1);
     }
   }
-
 
   Future<int> _delete(String table, String columnId, String id) async {
     final db = await instance.streamDatabase;
