@@ -15,13 +15,13 @@ class NoteTile extends StatefulWidget {
 class _NoteTileState extends State<NoteTile> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
         Container(
-          height: 320,
-          width: 200,
+          height: size.height * 0.38,
+          width: size.width * 0.5,
           decoration: const BoxDecoration(
-            color: Colors.transparent,
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: Padding(
@@ -36,8 +36,8 @@ class _NoteTileState extends State<NoteTile> {
                   color: Theme.of(context).cardColor,
                   shadowColor: Theme.of(context).shadowColor,
                   child: SizedBox(
-                    height: 250,
-                    width: 200,
+                    height: size.height * 0.3,
+                    width: size.width * 0.5,
                     child: Padding(
                       padding: const EdgeInsets.all(12),
                       child: Text(
@@ -67,7 +67,7 @@ class _NoteTileState extends State<NoteTile> {
 
   Widget buildTime() {
     final timeFormatter = DateTime.parse(widget.item.dateTime);
-    final timeString = DateFormat("yyyy-MM-dd HH:mm").format(timeFormatter);
+    final timeString = DateFormat("HH:mm   yyyy-MM-dd").format(timeFormatter);
     return Text(timeString , style: const TextStyle(color: Colors.grey, fontSize: 14));
   }
 }

@@ -9,7 +9,6 @@ import 'data/sqlite/sqlite_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   final repository = SqliteRepository();
   await repository.init();
   runApp(GigiNotes(repository: repository));
@@ -42,7 +41,6 @@ class GigiNotes extends StatelessWidget {
           } else {
             theme = GigiNotesTheme.light();
           }
-
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Gigi Notes',

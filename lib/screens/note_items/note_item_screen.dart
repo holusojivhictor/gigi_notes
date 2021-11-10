@@ -130,7 +130,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
       padding: const EdgeInsets.only(top: 6),
       child: SizedBox(
         width: size.width * 0.7,
-        height: 50,
+        height: size.width * 0.1,
         child: TextField(
           controller: _titleController,
           cursorHeight: 18,
@@ -156,7 +156,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
   Widget buildNoteTextField() {
     final size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 600,
+      height: size.height * 0.8,
       width: size.width * 0.98,
       child: TextField(
         maxLines: 100,
