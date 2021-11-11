@@ -30,7 +30,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
 
           return GridView.count(
             crossAxisCount: 2,
-            childAspectRatio: 0.57,
+            childAspectRatio: 0.59,
             children: List.generate(noteItems.length, (index) {
               final itemNote = noteItems[index];
 

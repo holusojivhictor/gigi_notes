@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.morpheus.gigi_notes">
    <application
-        android:label="gigi_notes"
+        android:label="Gigi Notes"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

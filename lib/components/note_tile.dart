@@ -28,35 +28,45 @@ class _NoteTileState extends State<NoteTile> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                Card(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(13)),
-                  ),
-                  elevation: 5,
-                  color: Theme.of(context).cardColor,
-                  shadowColor: Theme.of(context).shadowColor,
-                  child: SizedBox(
-                    height: size.height * 0.3,
-                    width: size.width * 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Text(
-                        widget.item.noteText,
-                        style: Theme.of(context).textTheme.bodyText2,
+                Expanded(
+                  flex: 5,
+                  child: Card(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(13)),
+                    ),
+                    elevation: 5,
+                    color: Theme.of(context).cardColor,
+                    shadowColor: Theme.of(context).shadowColor,
+                    child: SizedBox(
+                      height: size.height * 0.3,
+                      width: size.width * 0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          widget.item.noteText,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.item.title,
-                  style: GoogleFonts.lato(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Text(
+                        widget.item.title,
+                        style: GoogleFonts.lato(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      buildTime(),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 5),
-                buildTime(),
               ],
             ),
           ),
