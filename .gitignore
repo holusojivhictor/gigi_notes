@@ -8,6 +8,9 @@
 .buildlog/
 .history
 .svn/
+*.keystore
+*.jks
+*.JKS
 
 # IntelliJ related
 *.iml
@@ -44,3 +47,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/key.properties

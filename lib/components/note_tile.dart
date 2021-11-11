@@ -54,7 +54,7 @@ class _NoteTileState extends State<NoteTile> {
                   flex: 1,
                   child: Column(
                     children: [
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 8),
                       Text(
                         widget.item.title,
                         style: GoogleFonts.lato(
@@ -62,7 +62,7 @@ class _NoteTileState extends State<NoteTile> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 3),
                       buildTime(),
                     ],
                   ),
