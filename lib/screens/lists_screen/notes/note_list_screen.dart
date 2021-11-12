@@ -4,8 +4,8 @@ import 'package:gigi_notes/components/note_tile.dart';
 import 'package:gigi_notes/data/repository.dart';
 import 'package:gigi_notes/models/models.dart';
 import 'package:gigi_notes/screens/empty_screen/empty_note_screen.dart';
+import 'package:gigi_notes/screens/item_screen/notes/note_item_screen.dart';
 import 'package:provider/provider.dart';
-import '../note_items/note_item_screen.dart';
 
 class NoteListScreen extends StatefulWidget {
   final NoteManager manager;

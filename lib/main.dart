@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gigi_notes/data/repository.dart';
 import 'package:gigi_notes/models/models.dart';
 import 'package:gigi_notes/models/profile_manager.dart';
-import 'package:gigi_notes/screens/home/home_screen.dart';
+import 'package:gigi_notes/models/task_manager.dart';
+import 'package:gigi_notes/screens/screen_manager/screen_manager.dart';
 import 'package:gigi_notes/theme.dart';
 import 'package:provider/provider.dart';
 import 'data/sqlite/sqlite_repository.dart';
@@ -20,6 +21,7 @@ class GigiNotes extends StatelessWidget {
 
   final _profileManager = ProfileManager();
   final _noteManager = NoteManager();
+  final _taskManager = TaskManager();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class GigiNotes extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => _profileManager),
         ChangeNotifierProvider(create: (context) => _noteManager),
+        ChangeNotifierProvider(create: (context) => _taskManager),
       ],
       child: Consumer<ProfileManager>(
         builder: (context, profileManager, child) {
@@ -44,8 +47,9 @@ class GigiNotes extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Gigi Notes',
-            theme: theme,
-            home: HomeScreen(user: profileManager.getUser),
+            theme: GigiNotesTheme.light(),
+            darkTheme: GigiNotesTheme.dark(),
+            home: const ScreenManager(),
           );
         },
       ),

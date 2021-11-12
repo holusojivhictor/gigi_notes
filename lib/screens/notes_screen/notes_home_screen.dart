@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:gigi_notes/models/note_manager.dart';
 import 'package:gigi_notes/models/profile_manager.dart';
-import 'package:gigi_notes/models/user.dart';
-import 'package:gigi_notes/screens/home/components/body.dart';
-import 'package:gigi_notes/screens/note_items/note_item_screen.dart';
+import 'package:gigi_notes/screens/item_screen/notes/note_item_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatefulWidget {
-  final User user;
-  const HomeScreen({Key? key, required this.user}) : super(key: key);
+import 'components/body.dart';
+
+class NotesHomeScreen extends StatefulWidget {
+  const NotesHomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<NotesHomeScreen> createState() => _NotesHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NotesHomeScreenState extends State<NotesHomeScreen> {
   static const String prefSelectedModeKey = 'selectedMode';
   bool isSwitched = false;
 
   @override
   void initState() {
     super.initState();
-    getSwitchValues();
+    // getSwitchValues();
   }
 
   getSwitchValues() async {
@@ -52,11 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gigi Notes'),
-        actions: [
+        /*actions: [
           themeSwitch(),
-        ],
+        ],*/
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         child: const Icon(Icons.edit),
         onPressed: () {
           // Create a new note

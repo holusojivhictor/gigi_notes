@@ -40,6 +40,11 @@ class GigiNotesTheme {
       fontWeight:FontWeight.w600,
       color: kTextDark,
     ),
+    headline4: GoogleFonts.lato(
+      fontSize: 16.0,
+      fontWeight:FontWeight.w500,
+      color: kTextDark,
+    ),
     headline6: GoogleFonts.lato(
       fontSize: 20.0,
       fontWeight:FontWeight.normal,
@@ -73,6 +78,11 @@ class GigiNotesTheme {
       fontWeight:FontWeight.w600,
       color: kTextLight,
     ),
+    headline4: GoogleFonts.lato(
+      fontSize: 17.0,
+      fontWeight:FontWeight.w500,
+      color: kTextLight,
+    ),
     headline6: GoogleFonts.lato(
       fontSize: 20.0,
       fontWeight:FontWeight.normal,
@@ -82,6 +92,29 @@ class GigiNotesTheme {
 
   static ThemeData light() {
     return ThemeData(
+      chipTheme: ChipThemeData(
+        side: const BorderSide(color: Colors.black),
+        backgroundColor: Colors.white,
+        disabledColor: Colors.white,
+        selectedColor: Colors.black,
+        secondarySelectedColor: Colors.grey,
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        labelStyle: GoogleFonts.lato(fontSize: 11.0, fontWeight:FontWeight.normal, color: kTextDark),
+        secondaryLabelStyle: GoogleFonts.lato(fontSize: 10.0, fontWeight:FontWeight.normal, color: kTextDark),
+        brightness: Brightness.light,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.black),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        ),
+      ),
+      dividerColor: Colors.black38,
+      bottomAppBarColor: Colors.black,
+      splashColor: Colors.grey,
+      canvasColor: Colors.grey[50],
       cardColor: Colors.white,
       shadowColor: Colors.black,
       indicatorColor: Colors.black,
@@ -90,7 +123,7 @@ class GigiNotesTheme {
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black),
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         titleTextStyle: lightTextTheme.headline2,
@@ -104,6 +137,29 @@ class GigiNotesTheme {
   }
   static ThemeData dark() {
     return ThemeData(
+      chipTheme: ChipThemeData(
+        side: const BorderSide(color: Colors.white),
+        backgroundColor: Colors.black,
+        disabledColor: Colors.black,
+        selectedColor: Colors.white,
+        secondarySelectedColor: Colors.grey,
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        labelStyle: GoogleFonts.lato(fontSize: 11.0, fontWeight:FontWeight.normal, color: kTextLight),
+        secondaryLabelStyle: GoogleFonts.lato(fontSize: 10.0, fontWeight:FontWeight.normal, color: kTextLight),
+        brightness: Brightness.dark,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.white),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        ),
+      ),
+      dividerColor: Colors.white38,
+      bottomAppBarColor: Colors.white,
+      splashColor: Colors.grey,
+      canvasColor: Colors.black54,
       cardColor: Colors.grey.shade900,
       shadowColor: Colors.black,
       indicatorColor: Colors.white,
@@ -112,7 +168,7 @@ class GigiNotesTheme {
       scaffoldBackgroundColor: Colors.black38,
       appBarTheme: AppBarTheme(
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.indigo),
+        iconTheme: const IconThemeData(color: Colors.white),
         foregroundColor: Colors.white,
         backgroundColor: Colors.black45,
         titleTextStyle: darkTextTheme.headline2,
