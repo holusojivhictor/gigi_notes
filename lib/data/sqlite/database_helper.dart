@@ -1,3 +1,4 @@
+import 'package:gigi_notes/models/task_item.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -6,12 +7,16 @@ import 'package:synchronized/synchronized.dart';
 import 'package:gigi_notes/models/models.dart';
 
 class DatabaseHelper {
-  static const _databaseName = 'GigiNotesFinal.db';
+  static const _databaseName = 'GigiNotesUpdate.db';
   static const _databaseVersion = 1;
 
   static const noteTable = 'GigiNotes';
   static const noteId = 'noteId';
   static const cNoteId = 'cNoteId';
+
+  static const taskTable = 'GigiTasks';
+  static const taskId = 'taskId';
+  static const cTaskId = 'cTaskId';
 
   static late BriteDatabase _streamDatabase;
 
@@ -31,6 +36,18 @@ class DatabaseHelper {
             $cNoteId INTEGER,
             title TEXT,
             noteText TEXT,
+            dateTime TEXT,
+            isComplete INTEGER
+          )
+          ''');
+
+    await db.execute('''
+          CREATE TABLE $taskTable (
+            $taskId INTEGER PRIMARY KEY,
+            $cTaskId INTEGER,
+            title TEXT,
+            taskDescription TEXT,
+            category TEXT,
             dateTime TEXT,
             isComplete INTEGER
           )
@@ -82,6 +99,17 @@ class DatabaseHelper {
     return notes;
   }
 
+  List<TaskItem> parseTaskItem(List<Map<String, dynamic>> taskList) {
+    final tasks = <TaskItem>[];
+
+    taskList.forEach((taskMap) {
+      final task = TaskItem.fromMap(taskMap);
+
+      tasks.add(task);
+    });
+    return tasks;
+  }
+
   Future<List<NoteItem>> findAllNotes() async {
     final db = await instance.streamDatabase;
 
@@ -90,10 +118,24 @@ class DatabaseHelper {
     return notes;
   }
 
+  Future<List<TaskItem>> findAllTasks() async {
+    final db = await instance.streamDatabase;
+
+    final taskList = await db.query(taskTable);
+    final tasks = parseTaskItem(taskList);
+    return tasks;
+  }
+
   Stream<List<NoteItem>> watchAllNotes() async* {
     final db = await instance.streamDatabase;
 
     yield* db.createQuery(noteTable).mapToList((row) => NoteItem.fromMap(row));
+  }
+
+  Stream<List<TaskItem>> watchAllTasks() async* {
+    final db = await instance.streamDatabase;
+
+    yield* db.createQuery(taskTable).mapToList((row) => TaskItem.fromMap(row));
   }
 
   Future<int> insert(String table, Map<String, dynamic> row) async {
@@ -102,8 +144,13 @@ class DatabaseHelper {
     return db.insert(table, row);
   }
 
+
   Future<int> insertNote(NoteItem noteItem) {
     return insert(noteTable, NoteItem.toMap(noteItem));
+  }
+
+  Future<int> insertTask(TaskItem taskItem) {
+    return insert(taskTable, TaskItem.toMap(taskItem));
   }
 
   Future<int> update(String table, Map<String, dynamic> row, String columnId,
@@ -122,6 +169,14 @@ class DatabaseHelper {
     }
   }
 
+  Future<int> updateTask(TaskItem taskItem) async {
+    if (taskItem.cTaskId != null) {
+      return update(taskTable, TaskItem.toMap(taskItem), cTaskId, taskItem.cTaskId!);
+    } else {
+      return Future.value(-1);
+    }
+  }
+
   Future<int> _delete(String table, String columnId, String id) async {
     final db = await instance.streamDatabase;
 
@@ -131,6 +186,14 @@ class DatabaseHelper {
   Future<int> deleteNote(NoteItem noteItem) async {
     if (noteItem.cNoteId != null) {
       return _delete(noteTable, cNoteId, noteItem.cNoteId!);
+    } else {
+      return Future.value(-1);
+    }
+  }
+
+  Future<int> deleteTask(TaskItem taskItem) async {
+    if (taskItem.cTaskId != null) {
+      return _delete(taskTable, cTaskId, taskItem.cTaskId!);
     } else {
       return Future.value(-1);
     }

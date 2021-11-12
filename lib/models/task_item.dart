@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
 enum Importance {
   later,
@@ -6,6 +7,13 @@ enum Importance {
   running,
   urgent,
 }
+
+const _$ImportanceEnumMap = {
+  Importance.later: 'later',
+  Importance.ongoing: 'ongoing',
+  Importance.running: 'running',
+  Importance.urgent: 'urgent',
+};
 
 class TaskItem {
   String? cTaskId;
@@ -50,7 +58,7 @@ class TaskItem {
     cTaskId: json['cTaskId'],
     title: json['title'],
     taskDescription: json['taskDescription'],
-    category: json['category'],
+    category: $enumDecode(_$ImportanceEnumMap, json['category']),
     dateTime: json['dateTime'],
   );
 
@@ -59,7 +67,7 @@ class TaskItem {
     data['cTaskId'] = taskItem.cTaskId;
     data['title'] = taskItem.title;
     data['taskDescription'] = taskItem.taskDescription;
-    data['category'] = taskItem.category;
+    data['category'] = _$ImportanceEnumMap[taskItem.category];
     data['dateTime'] = taskItem.dateTime;
 
     return data;

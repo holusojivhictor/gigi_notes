@@ -57,7 +57,7 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
         _taskDescription = _taskDesController.text;
       });
     });
-    // widget.manager.getOldTasks();
+    widget.manager.getOldTasks();
 
     super.initState();
   }
@@ -124,9 +124,14 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
 
                       if (widget.isUpdating) {
                         widget.onUpdate(taskItem);
+                        repository.updateTask(taskItem);
                       } else {
                         widget.onCreate(taskItem);
+                        repository.insertTask(taskItem);
                       }
+                      widget.manager.addItem(taskItem);
+                      widget.manager.saveOldTasks();
+
                     },
                     child: Text('Create task', style: TextStyle(color: Theme.of(context).canvasColor)),
                   ),
