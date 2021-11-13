@@ -54,6 +54,7 @@ class _ScreenManagerState extends State<ScreenManager> {
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: pageList),
       bottomNavigationBar: BottomNavigationBar(
+        iconSize: 22,
         currentIndex: _selectedIndex,
         selectedItemColor: Theme.of(context).bottomAppBarColor,
         onTap: _onItemTapped,

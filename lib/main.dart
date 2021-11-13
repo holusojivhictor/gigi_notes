@@ -47,8 +47,8 @@ class GigiNotes extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Gigi Notes',
-            theme: GigiNotesTheme.light(),
-            darkTheme: GigiNotesTheme.dark(),
+            theme: theme,
+            // darkTheme: GigiNotesTheme.dark(),
             home: const ScreenManager(),
           );
         },

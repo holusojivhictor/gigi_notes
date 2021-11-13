@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gigi_notes/components/contact.dart';
 import 'package:gigi_notes/models/task_item.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -74,9 +75,23 @@ class TaskTile extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 1,
-                        child: GestureDetector(
+                        child: PopupMenuButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           child: const Icon(Icons.more_vert),
-                          onTap: () {},
+                          onSelected: (value) {
+                            if (value == 'Share') {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ExtraPage()));
+                            }
+                          },
+                          itemBuilder: (context) {
+                            return List.generate(1, (index) {
+                              return const PopupMenuItem(
+                                key: Key('Share'),
+                                value: 'Share',
+                                child: Text('Share'),
+                              );
+                            });
+                          },
                         ),
                       ),
                     ],

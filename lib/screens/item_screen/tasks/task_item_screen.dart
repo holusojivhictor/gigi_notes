@@ -34,6 +34,7 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
   Importance _category = Importance.later;
   DateTime _editDate = DateTime.now();
   TimeOfDay _timeOfDay = TimeOfDay.now();
+  TimeOfDay _timeOfDayEnd = TimeOfDay.now();
 
   @override
   void initState() {
@@ -88,7 +89,7 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
               buildTabName('Task title'),
               buildTitleField(),
               const SizedBox(height: 10),
-              buildTabName('Category'),
+              buildTabName('Priority'),
               buildImportanceField(),
               const SizedBox(height: 10),
               buildTabName('Date'),
@@ -303,7 +304,7 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
             children: [
               buildTabName('Ends'),
               const SizedBox(height: 5),
-              buildTimeBar(context),
+              buildTimeBarEnd(context),
             ],
           ),
         ),
@@ -336,6 +337,42 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
                   setState(() {
                     if (timeOfDay != null) {
                       _timeOfDay = timeOfDay;
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTimeBarEnd(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Container(
+        height: 35,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          border: Border.all(color: Theme.of(context).indicatorColor),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(_timeOfDayEnd.format(context)),
+              GestureDetector(
+                child: const Icon(Icons.access_time_filled, size: 18),
+                onTap: () async {
+                  final timeOfDayEnd = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  setState(() {
+                    if (timeOfDayEnd != null) {
+                      _timeOfDayEnd = timeOfDayEnd;
                     }
                   });
                 },

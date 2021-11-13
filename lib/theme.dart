@@ -97,7 +97,7 @@ class GigiNotesTheme {
         backgroundColor: Colors.white,
         disabledColor: Colors.white,
         selectedColor: Colors.black,
-        secondarySelectedColor: Colors.grey,
+        secondarySelectedColor: Colors.grey.shade300,
         padding: const EdgeInsets.only(left: 10, right: 10),
         labelStyle: GoogleFonts.lato(fontSize: 11.0, fontWeight:FontWeight.normal, color: kTextDark),
         secondaryLabelStyle: GoogleFonts.lato(fontSize: 10.0, fontWeight:FontWeight.normal, color: kTextDark),
