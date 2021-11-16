@@ -11,7 +11,7 @@ class ScreenManager extends StatefulWidget {
 }
 
 class _ScreenManagerState extends State<ScreenManager> {
-  int _selectedIndex =0;
+  int _selectedIndex = 0;
   List<Widget> pageList = <Widget>[];
   static const String prefSelectedIndexKey = 'selectedIndex';
 

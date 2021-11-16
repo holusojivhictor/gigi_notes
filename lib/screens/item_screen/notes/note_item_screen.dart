@@ -63,7 +63,7 @@ class _NoteItemScreenState extends State<NoteItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final repository = Provider.of<Repository>(context);
+    final repository = Provider.of<Repository>(context, listen: false);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

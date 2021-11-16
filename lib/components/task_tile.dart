@@ -16,7 +16,7 @@ class TaskTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(10),
           child: Container(
-            height: 145,
+            height: 150,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(15)),

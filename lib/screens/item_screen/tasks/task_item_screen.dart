@@ -72,7 +72,7 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final repository = Provider.of<Repository>(context);
+    final repository = Provider.of<Repository>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -191,51 +191,55 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
   Widget buildImportanceField() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 20.0,
-            children: [
-              ChoiceChip(
-                selected: _category == Importance.later,
-                label: const Text('LATER'),
-                onSelected: (selected) {
-                  setState(() {
-                    _category = Importance.later;
-                  });
-                },
-              ),
-              ChoiceChip(
-                selected: _category == Importance.ongoing,
-                label: const Text('ONGOING'),
-                onSelected: (selected) {
-                  setState(() {
-                    _category = Importance.ongoing;
-                  });
-                },
-              ),
-              ChoiceChip(
-                selected: _category == Importance.running,
-                label: const Text('RUNNING'),
-                onSelected: (selected) {
-                  setState(() {
-                    _category = Importance.running;
-                  });
-                },
-              ),
-              ChoiceChip(
-                selected: _category == Importance.urgent,
-                label: const Text('URGENT'),
-                onSelected: (selected) {
-                  setState(() {
-                    _category = Importance.urgent;
-                  });
-                },
-              ),
-            ],
-          ),
-        ],
+      child: SizedBox(
+        height: 55,
+        width: double.infinity,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            Wrap(
+              spacing: 20.0,
+              children: [
+                ChoiceChip(
+                  selected: _category == Importance.later,
+                  label: const Text('LATER'),
+                  onSelected: (selected) {
+                    setState(() {
+                      _category = Importance.later;
+                    });
+                  },
+                ),
+                ChoiceChip(
+                  selected: _category == Importance.ongoing,
+                  label: const Text('ONGOING'),
+                  onSelected: (selected) {
+                    setState(() {
+                      _category = Importance.ongoing;
+                    });
+                  },
+                ),
+                ChoiceChip(
+                  selected: _category == Importance.running,
+                  label: const Text('RUNNING'),
+                  onSelected: (selected) {
+                    setState(() {
+                      _category = Importance.running;
+                    });
+                  },
+                ),
+                ChoiceChip(
+                  selected: _category == Importance.urgent,
+                  label: const Text('URGENT'),
+                  onSelected: (selected) {
+                    setState(() {
+                      _category = Importance.urgent;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

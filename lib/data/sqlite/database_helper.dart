@@ -7,7 +7,7 @@ import 'package:synchronized/synchronized.dart';
 import 'package:gigi_notes/models/models.dart';
 
 class DatabaseHelper {
-  static const _databaseName = 'GigiNotesUpdate.db';
+  static const _databaseName = 'GigiNotesUpdated.db';
   static const _databaseVersion = 1;
 
   static const noteTable = 'GigiNotes';
@@ -62,7 +62,7 @@ class DatabaseHelper {
     final path = join(documentsDirectory.path, _databaseName);
 
     // Remember to turn off debugging before deploying to app store(s)
-    Sqflite.setDebugModeOn(true);
+    Sqflite.setDebugModeOn(false);
 
     return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
