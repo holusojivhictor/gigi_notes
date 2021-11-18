@@ -29,8 +29,6 @@ class TaskItemScreen extends StatefulWidget {
 class _TaskItemScreenState extends State<TaskItemScreen> {
   final _titleController = TextEditingController();
   final _taskDesController = TextEditingController();
-  String _title = '';
-  String _taskDescription = '';
   Importance _category = Importance.later;
   DateTime _editDate = DateTime.now();
   TimeOfDay _timeOfDay = TimeOfDay.now();
@@ -41,23 +39,10 @@ class _TaskItemScreenState extends State<TaskItemScreen> {
     final originalItem = widget.originalItem;
     if (originalItem != null) {
       _titleController.text = originalItem.title;
-      _title = originalItem.title;
       _taskDesController.text = originalItem.taskDescription;
-      _taskDescription = originalItem.taskDescription;
       _category = originalItem.category;
     }
 
-    _titleController.addListener(() {
-      setState(() {
-        _title = _titleController.text;
-      });
-    });
-
-    _taskDesController.addListener(() {
-      setState(() {
-        _taskDescription = _taskDesController.text;
-      });
-    });
     widget.manager.getOldTasks();
 
     super.initState();
