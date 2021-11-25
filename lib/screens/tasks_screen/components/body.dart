@@ -12,7 +12,6 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final repository = Provider.of<Repository>(context, listen: false);
-
     return StreamBuilder<List<TaskItem>>(
       stream: repository.watchAllTasks(),
       builder: (context, AsyncSnapshot<List<TaskItem>> snapshot) {
